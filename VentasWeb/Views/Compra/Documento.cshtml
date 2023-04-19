@@ -1,0 +1,180 @@
+﻿@model CapaModelo.Compra
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Documento</title>
+    @Styles.Render("~/Content/PluginsCSS")
+    <style type="text/css">
+        .btn:not(:disabled):not(.disabled) {
+            cursor: pointer;
+        }
+        .btn-secondary {
+            color: #fff;
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div style="font-size: 11px; text-align: right;">
+        <center>
+            <button type="button" id="Imprimir" class="btn btn-secondary" onclick="javascript:imprSelec('seleccion')"><i class="fas fa-print"></i> Imprimir</button>
+        </center>
+        <br>
+    </div>
+    <div id="seleccion">
+        <center>
+            <table style="width: 650px; border:2px solid #17a2b8;padding: 10px;">
+                <tr>
+                    <td>
+                        <table id="cabezera">
+                            <tr>
+                                <td style="width:140px">
+                                    <img src="@Url.Content("~/Imagenes/tienda.png")" alt="" height="70">
+                                </td>
+                                <td style="width:340px">
+                                    <table style="width:100%">
+                                        <tr><td><label style="font-size:20px;font-weight:bold;text-align:center;width:100%;display:block">MI TIENDA ONLINE S.A.C TEST</label></td></tr>
+                                        <tr><td><label style="text-align:center;width:100%;display:block">test@gmmail.com</label></td></tr>
+                                    </table>
+                                </td>
+                                <td style="width:150px;">
+                                    <table style="height: 90px; width:100%; font-weight: bold;border:2px solid #17a2b8;">
+                                        <tbody>
+                                            <tr style="color:#fff;background-color:#17a2b8; -webkit-print-color-adjust: exact;"><td align="center">COMPRA</td></tr>
+                                            <tr><td align="center">NRO - <span>@Html.DisplayTextFor(model => model.Codigo)</span> </td></tr>
+                                            <tr><td align="center">Fecha - <span>@Html.DisplayTextFor(model => model.FechaCompra)</span> </td></tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+                <tr style="height: 20px;"><td><br></td></tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%;">
+                            <tbody>
+                                <tr style="color:#fff;background-color:#17a2b8; -webkit-print-color-adjust: exact;">
+                                    <td style="padding:4px" colspan="4">
+                                        <u>Detalle Proveedor</u>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="15">Ruc:</td>
+                                    <td style="border-bottom: 1px solid black;"><center><span>@Html.DisplayTextFor(model => model.oProveedor.Ruc)</span></center></td>
+                                    <td width="100">Razon Social:</td>
+                                    <td style="border-bottom: 1px solid black;"><center><span>@Html.DisplayTextFor(model => model.oProveedor.RazonSocial)</span></center></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr><td><hr /></td></tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%;">
+                            <tbody>
+                                <tr style="color:#fff;background-color:#17a2b8; -webkit-print-color-adjust: exact;">
+                                    <td style="padding:4px" colspan="4">
+                                        <u>Tienda Destino</u>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="15">Ruc:</td>
+                                    <td style="border-bottom: 1px solid black;"><center><span>@Html.DisplayTextFor(model => model.oTienda.RUC)</span></center></td>
+                                    <td width="110">Nombre Tienda:</td>
+                                    <td style="border-bottom: 1px solid black;"><center><span id="nombretienda">@Html.DisplayTextFor(model => model.oTienda.Nombre)</span></center></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr><td><hr /></td></tr>
+                <tr style="color:#fff;background-color:#17a2b8; -webkit-print-color-adjust: exact;">
+                    <td style="padding:4px">
+                        <u>Detalle Productos</u>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table id="tbCompras" border="1" style=" width: 100%;">
+                            <thead>
+                                <tr bgcolor="#D9D9D9">
+                                    <th style="width: 15%;">Cantidad</th>
+                                    <th style="width: 50%;">Concepto</th>
+                                    <th style="width: 20%;">P.Unit Compra</th>
+                                    <th style="width: 25%;">Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.oListaDetalleCompra)
+                                {
+
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.oProducto.Nombre)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PrecioUnitarioCompra)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TotalCosto)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <table style="font-weight: bold; width: 150px;">
+                            <tbody>
+                                <tr>
+                                    <td>Total S/.</td>
+                                    <td style="border:1px solid black;"><span>@Html.DisplayTextFor(model => model.TotalCosto)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </div>
+    @Scripts.Render("~/Content/PluginsJS")
+    <script>
+        
+        function imprSelec(nombre) {
+            var printContents = document.getElementById(nombre).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+
+    </script>
+
+</body>
+</html>

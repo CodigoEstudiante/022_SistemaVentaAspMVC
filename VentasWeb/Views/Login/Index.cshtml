@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body class="bg-info">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex align-items-center min-vh-100">
+                    <div class="w-100 d-block my-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8 col-lg-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="text-center mb-4 mt-3">
+                                            <a href="#">
+                                                <span><img src="@Url.Content("~/Imagenes/tienda.png")" alt="" height="100"></span>
+                                            </a>
+                                        </div>
+                                        <form action="@Url.Content("~/Login/Index")" method="post" class="p-2">
+                                            <div class="form-group">
+                                                <label for="emailaddress">Correo</label>
+                                                <input class="form-control" type="email" name="correo" required="" autocomplete="off" value="admin@gmail.com">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Contraseña</label>
+                                                <input class="form-control" type="password" required="" name="clave" autocomplete="off" value="admin@gmail.com">
+                                            </div>
+
+                                            <div class="mb-3 text-center">
+                                                <button class="btn btn-primary btn-block" type="submit">Ingresar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-sm-12 text-center">
+                                        <p class="text-white mb-0">Todos los derechos reservados &copy;<a href="https://ouo.io/RK1tRH" target="_blank" class="text-white ml-1"><b>Open Source - CLICK HERE</b></a></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
